@@ -1,0 +1,27 @@
+Your first input is a list of connections. Each connection is a pair of devices, where each device is represented by its IPv4 address. Each distinct device (IP address) may be in one of two states: active or inactive. All devices begin inactive.
+
+connections = [["192.167.0.0", "192.167.0.1"], ["192.167.0.2", "192.167.0.0"], ["192.167.0.0", "192.167.0.3"]]
+
+Each connection can also be in one of two states: active or inactive. A connection is active only when both of its devices are active. Since all devices begin inactive, all connections also begin inactive.
+
+Your second input is a sequence of single IP addresses that is used to toggle device states, and therefore also connection states, in order.
+
+toggleIps = ["192.167.0.1", "192.167.0.0", "192.167.0.2", "192.167.0.0", "0.0.0.0"]
+
+For each IP in toggleIps, toggle the state of any matching devices and connections. After each toggle, calculate the "impact count": the number of connections which the device participates in and have changed from active to inactive, or inactive to active.
+Return an array, where each element contains the impact count after the corresponding toggle. This gives us a timeline of connection/disconnection impact throughout the simulation.
+
+Example
+
+For connections = [["192.167.0.0", "192.167.0.1"], 
+                ["192.167.0.2", "192.167.0.0"], ["192.167.0.0", "192.167.0.3"]] and toggleIps = ["192.167.0.1", "192.167.0.0", "192.167.0.2", "192.167.0.0", "0.0.0.0"], the output should be
+numberOfDevices(connections, toggleIps) = [0, 1, 1, 2, 0].
+
+"192.167.0.1" would become active and is a part of connection: ["192.167.0.0", "192.167.0.1"]. However, since the other device is still inactive the connection remains inactive. The first count would be 0 because the connection has not changed state
+When "192.167.0.0" becomes active there is already an active device connected to it - "192.167.0.1" which means there is now 1 active connection that was previously inactive
+"192.167.0.2" becomes active which activates 1 connection between it and "192.167.0.0"
+"192.167.0.0" becomes inactive, it exists in 2 connections, which were both active and now become inactive
+"0.0.0.0" becomes active, but it has 0 connections
+So overall for the sample inputs above:
+numberOfDevices(connections, toggleIps) = [0, 1, 1, 2, 0]
+
